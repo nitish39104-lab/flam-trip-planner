@@ -1,0 +1,188 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --panel-2: #1f232c;
+  --border: #2a2f3a;
+  --text: #e8eaed;
+  --text-dim: #9aa1ab;
+  --accent: #5b9dff;
+  --danger: #ff6b6b;
+  --radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.app-header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+}
+.app-header p {
+  color: var(--text-dim);
+  margin-top: 0;
+  font-size: 0.95rem;
+}
+
+.prompt-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0 28px;
+}
+.prompt-input textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 0.95rem;
+  resize: vertical;
+}
+.prompt-input button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #06121f;
+  font-weight: 600;
+  cursor: pointer;
+}
+.prompt-input button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.state-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--text-dim);
+}
+
+.loading-state .spinner {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-state { border-color: var(--danger); }
+.error-title { color: var(--danger); font-weight: 600; margin: 0 0 6px; }
+.error-detail { margin: 0 0 16px; }
+.error-state button, .empty-day {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+}
+
+.trip-planner {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.trip-header {
+  padding: 18px 18px 12px;
+  background: var(--panel);
+}
+.trip-header h2 { margin: 0 0 4px; font-size: 1.25rem; }
+.trip-destination { margin: 0; color: var(--text-dim); }
+
+.day-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 18px;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.day-tab {
+  flex: 0 0 auto;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.day-tab.active {
+  background: var(--accent);
+  color: #06121f;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.day-panel { padding: 16px 18px 20px; }
+.day-panel h3 { margin: 0 0 12px; font-size: 1rem; color: var(--text-dim); }
+
+.stop-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.stop {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel-2);
+  padding: 10px 12px;
+}
+.stop-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.stop-time { color: var(--text-dim); font-size: 0.8rem; min-width: 64px; }
+.stop-name { flex: 1; font-weight: 500; }
+.stop-description {
+  margin: 10px 0 0;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+.stop-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+.stop-actions button {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+.stop-actions button:disabled { opacity: 0.35; cursor: not-allowed; }
+.remove-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+.app-footer { margin-top: 32px; text-align: center; color: var(--text-dim); }
+
+@media (max-width: 480px) {
+  .app { padding: 16px 12px 48px; }
+  .prompt-input button { align-self: stretch; }
+}
