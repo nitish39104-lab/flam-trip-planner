@@ -1,7 +1,6 @@
 /**
  * The only function in the frontend that makes a network call for
- * generation. It always hits our own backend (server/generate.js), never
- * the Gemini API directly — the key lives server-side only.
+ * generation. It always hits our own backend, never the AI provider directly.
  */
 export async function requestTrip(description, { signal } = {}) {
   const res = await fetch('/api/generate', {
@@ -12,7 +11,8 @@ export async function requestTrip(description, { signal } = {}) {
   });
 
   if (!res.ok) {
-    const err = new Error(`Request failed with status ${res.status}`);
+    const data = await res.json().catch(() => null);
+    const err = new Error(data?.error || `Request failed with status ${res.status}`);
     err.status = res.status;
     throw err;
   }
