@@ -12,7 +12,8 @@ export async function requestTrip(description, { signal } = {}) {
   });
 
   if (!res.ok) {
-    const err = new Error(`Request failed with status ${res.status}`);
+    const body = await res.json().catch(() => null);
+    const err = new Error(body?.error || `Request failed with status ${res.status}`);
     err.status = res.status;
     throw err;
   }
@@ -21,5 +22,8 @@ export async function requestTrip(description, { signal } = {}) {
   // Backend always responds with { raw: "<model text>" } — parsing/validation
   // of that text happens on the frontend (validateResult.js) so failure
   // states are easy to unit test independently of the network layer.
+  if (typeof data.raw !== 'string') {
+    throw new Error('The server returned an invalid response.');
+  }
   return data.raw;
 }
